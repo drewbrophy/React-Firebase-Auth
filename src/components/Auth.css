@@ -1,0 +1,32 @@
+.space16 {
+    height: 16px;
+  }
+  .space4 {
+    height: 4px;
+  }
+  
+  .space8 {
+    height: 8px;
+  }
+  .centertext {
+    text-align: center;
+  }
+  
+  .loginbackground {
+    background-color: #000;
+    background-image: url(../assets//login.jpg);
+    background-position: center; /* Center the image */
+    background-size: cover; /* Resize the background image to cover the entire container */
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    width: 100vw;
+    height: 100vh;
+    overflow: hidden;
+  }
+  .logincontainer {
+    text-align: center;
+    padding-left: 3%;
+    padding-right: 3%;
+  }
+  

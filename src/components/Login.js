@@ -1,33 +1,93 @@
-import React, { useRef, useState } from "react"
-import { Form, Button, Card, Alert } from "react-bootstrap"
-import { useAuth } from "../contexts/AuthContext"
-import { Link, useHistory } from "react-router-dom"
+import React, { useRef, useState, useEffect } from "react";
+import { useAuth } from "../contexts/AuthContext";
+import { Link, useHistory } from "react-router-dom";
+import "./Auth.css";
+import {
+  IonButton,
+  IonPage,
+  IonCard,
+  IonItem,
+  IonLabel,
+  IonInput,
+  useIonAlert,
+} from "@ionic/react";
 
 export default function Login() {
-  const emailRef = useRef()
-  const passwordRef = useRef()
-  const { login } = useAuth()
-  const [error, setError] = useState("")
-  const [loading, setLoading] = useState(false)
-  const history = useHistory()
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
+  const { login } = useAuth();
+  const [error, setError] = useState("");
+  const [loading, setLoading] = useState(false);
+  const history = useHistory();
 
-  async function handleSubmit(e) {
-    e.preventDefault()
-
+  async function handleSubmit() {
     try {
-      setError("")
-      setLoading(true)
-      await login(emailRef.current.value, passwordRef.current.value)
-      history.push("/")
+      setError("");
+      setLoading(true);
+      await login(email, password);
+      history.push("/");
     } catch {
-      setError("Failed to log in")
+      setError("Failed to log in");
     }
-
-    setLoading(false)
+    setLoading(false);
   }
 
   return (
-    <>
+    <IonPage>
+      <div className="loginbackground">
+        {" "}
+        <IonCard>
+          {" "}
+          <div className="logincontainer">
+            <div className="space8"> </div>
+            <div className="centertext">
+              <h2>Strength&amp;Numbers</h2>
+            </div>
+            <div className="logincontainer">
+              <IonItem>
+                <IonLabel position="fixed">Email</IonLabel>
+                <IonInput
+                  value={email}
+                  placeholder="biglift@gmail.com"
+                  onIonChange={(e) => setEmail(e.detail.value)}
+                ></IonInput>
+              </IonItem>
+              <IonItem>
+                <IonLabel position="fixed">Password</IonLabel>
+                <IonInput
+                  value={password}
+                  type="password"
+                  placeholder="•••••••••"
+                  onIonChange={(e) => setPassword(e.detail.value)}
+                ></IonInput>
+              </IonItem>
+              <div className="space8"> </div>
+              <IonButton onClick={handleSubmit} expand="block">Login</IonButton>
+            </div>{" "}
+            <div className="centertext">
+              <div className="logincontainer">
+                <div className="space4"> </div>
+                <IonButton
+                  //onClick={() => setViewState("signup")}
+                  expand="block"
+                  fill="outline"
+                >
+                  Sign Up
+                </IonButton>
+                <div className="space8"> </div>
+                <a>Forgot Your Password?</a>
+                <div className="space8"> </div>
+              </div>
+            </div>
+          </div>
+        </IonCard>{" "}
+      </div>
+    </IonPage>
+
+    /*
+   
+   
+   <>
       <Card>
         <Card.Body>
           <h2 className="text-center mb-4">Log In</h2>
@@ -53,6 +113,6 @@ export default function Login() {
       <div className="w-100 text-center mt-2">
         Need an account? <Link to="/signup">Sign Up</Link>
       </div>
-    </>
-  )
+    </> */
+  );
 }
